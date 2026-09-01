@@ -1,6 +1,8 @@
 package com.example.meijo_android_2026;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -14,12 +16,12 @@ import com.example.meijo_android_2026.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+    private PrefDataStore prefDataStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        //setContentView(R.layout.activity_main);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -30,10 +32,16 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        //TextView textView = findViewById(R.id.text_view);
-        //textView.setText(R.string.text2);
-        // text_view → textView
-        binding.textView.setText(R.string.text2);
-        binding.imageView.setImageResource(R.drawable.ic_add_location);
+        prefDataStore = PrefDataStore.getInstance(this);
+
+        binding.changeButton.setOnClickListener(view -> {
+            String text = binding.editTextText.getText().toString();
+            binding.textView.setText(text);
+        });
+
+        binding.saveButton.setOnClickListener(view -> {
+            String text = binding.editTextText.getText().toString();
+            prefDataStore.setString("text", text);
+        });
     }
 }
