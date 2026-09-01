@@ -3,6 +3,7 @@ package com.example.meijo_android_2026;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -33,6 +34,18 @@ public class MainActivity extends AppCompatActivity {
         });
 
         prefDataStore = PrefDataStore.getInstance(this);
+        prefDataStore.getString("text")
+                .ifPresent(text -> {
+                    if ("a".equals(text)) {
+                        binding.textView.setText("Aの画像");
+                        binding.imageView.setImageResource(R.drawable.ic_add_home);
+                    } else if ("b".equals(text)) {
+                        binding.textView.setText("Bの画像");
+                        binding.imageView.setImageResource(R.drawable.ic_add_location);
+                    } else {
+                        binding.textView.setText("知らない画像");
+                    }
+                });
 
         binding.changeButton.setOnClickListener(view -> {
             String text = binding.editTextText.getText().toString();
@@ -41,6 +54,13 @@ public class MainActivity extends AppCompatActivity {
 
         binding.saveButton.setOnClickListener(view -> {
             String text = binding.editTextText.getText().toString();
+            if ("a".equals(text)) {
+                binding.imageView.setImageResource(R.drawable.ic_add_home);
+            } else if ("b".equals(text)) {
+                binding.imageView.setImageResource(R.drawable.ic_add_location);
+            } else {
+                text = "unknown";
+            }
             prefDataStore.setString("text", text);
         });
     }
