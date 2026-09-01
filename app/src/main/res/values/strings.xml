@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">meijo-android-2026</string>
+    <string name="text">こんばんは 名城!</string>
+    <string name="text2">こんにちはこんにちは</string>
 </resources>
