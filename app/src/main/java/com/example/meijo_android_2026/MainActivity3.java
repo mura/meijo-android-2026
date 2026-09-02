@@ -1,5 +1,6 @@
 package com.example.meijo_android_2026;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -29,5 +30,19 @@ public class MainActivity3 extends AppCompatActivity {
         // Extra の "text" に入れられた文字を表示
         var text = getIntent().getStringExtra("editText");
         binding.textResult.setText(text);
+
+        binding.buttonOk.setOnClickListener(view -> {
+            // OKボタンを押した
+            var intent = new Intent();
+            intent.putExtra("ret", "OK押したよ");
+            setResult(RESULT_OK, intent);
+            finish();
+        });
+
+        binding.buttonCancel.setOnClickListener(view -> {
+            // キャンセルボタンを押した
+            setResult(RESULT_CANCELED);
+            finish();
+        });
     }
 }
